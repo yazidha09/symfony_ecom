@@ -1,0 +1,155 @@
+{% extends 'base.html.twig' %}
+{% block title %}Login - MyShop{% endblock %}
+
+{% block body %}
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+
+    body {
+        font-family: 'Inter', sans-serif;
+        background: linear-gradient(135deg, #f0f4ff, #d6e0f5);
+        position: relative;
+        overflow-x: hidden;
+    }
+
+    .login-wrapper {
+        position: relative;
+        z-index: 1;
+    }
+
+    .blur-bg {
+        position: absolute;
+        width: 500px;
+        height: 500px;
+        background: #3b5998;
+        opacity: 0.1;
+        border-radius: 50%;
+        top: -100px;
+        right: -100px;
+        filter: blur(100px);
+        z-index: 0;
+    }
+
+    .login-card {
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(8px);
+        border-radius: 20px;
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.08);
+        padding: 2.5rem;
+        max-width: 420px;
+        width: 100%;
+        margin: auto;
+        animation: slideFade 0.5s ease-in-out;
+    }
+
+    @keyframes slideFade {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .login-card h2 {
+        color: #2d4373;
+        font-weight: 700;
+        margin-bottom: 1.5rem;
+    }
+
+    .form-label {
+        font-weight: 600;
+        color: #495057;
+    }
+
+    .form-control {
+        border-radius: 10px;
+        padding: 10px 15px;
+        border: 1px solid #ced4da;
+        transition: border-color 0.3s, box-shadow 0.3s;
+    }
+
+    .form-control:focus {
+        border-color: #3b5998;
+        box-shadow: 0 0 0 0.2rem rgba(59, 89, 152, 0.25);
+    }
+
+    .btn-primary {
+        background-color: #3b5998;
+        border: none;
+        border-radius: 12px;
+        font-weight: 600;
+        padding: 0.75rem;
+        transition: background-color 0.3s ease;
+    }
+
+    .btn-primary:hover {
+        background-color: #2d4373;
+    }
+
+    .register-link a {
+        color: #3b5998;
+        font-weight: 500;
+        text-decoration: none;
+    }
+
+    .register-link a:hover {
+        text-decoration: underline;
+    }
+
+    .alert {
+        border-radius: 0.75rem;
+        font-size: 0.9rem;
+    }
+</style>
+
+<div class="container d-flex justify-content-center align-items-center min-vh-100">
+    <div class="login-card">
+        <h2 class="text-center mb-4">Login to MyShop</h2>
+
+        {% if app.flashes('error') %}
+            {% for message in app.flashes('error') %}
+                <div class="alert alert-danger">{{ message }}</div>
+            {% endfor %}
+        {% endif %}
+
+        <form method="post" action="{{ path('login') }}">
+            <div class="mb-3">
+                <label for="email" class="form-label">Email</label>
+                <input 
+                    type="text" 
+                    id="email" 
+                    name="email" 
+                    class="form-control" 
+                    value="{{ app.flashes('email')|first }}" 
+                    required 
+                    autofocus
+                    placeholder="you@example.com"
+                >
+            </div>
+
+            <div class="mb-3">
+                <label for="password" class="form-label">Password</label>
+                <input 
+                    type="password" 
+                    id="password" 
+                    name="password" 
+                    class="form-control" 
+                    required
+                    placeholder="••••••••"
+                >
+            </div>
+
+            <div class="d-grid mb-3">
+                <button type="submit" class="btn btn-primary">Login</button>
+            </div>
+
+            <div class="text-center register-link">
+                <small>Don't have an account? <a href="{{ path('signup') }}">Register here</a></small>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

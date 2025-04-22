@@ -1,0 +1,110 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}About Us | IronStyle Gymwear{% endblock %}
+
+{% block body %}
+    <!-- Hero Section - About Page -->
+    <div class="hero-section position-relative" style="background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://images.unsplash.com/photo-1581009137042-c552e485697a?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80'); background-size: cover; background-position: center; height: 60vh; display: flex; align-items: center; color: white; margin-top: 0;">
+        <div class="container text-center">
+            <h1 class="display-3 fw-bold mb-4 text-uppercase" style="letter-spacing: 3px;">Our Iron Story</h1>
+            <p class="lead fs-4">Where Fitness Meets Street Style</p>
+        </div>
+    </div>
+
+    <!-- Mission Section -->
+    <div class="container py-5 my-5">
+        <div class="row align-items-center">
+            <div class="col-md-6 order-md-2">
+                <img src="https://images.unsplash.com/photo-1538805060514-97d9cc17730c?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" class="img-fluid rounded shadow-lg" alt="Gym Team">
+            </div>
+            <div class="col-md-6 order-md-1">
+                <h2 class="fw-bold text-uppercase mb-4">Built By Athletes</h2>
+                <div class="d-flex mb-3">
+                    <div class="me-4">
+                        <div class="bg-danger rounded-circle d-flex align-items-center justify-content-center" style="width: 50px; height: 50px;">
+                            <i class="bi bi-lightning-fill text-white fs-5"></i>
+                        </div>
+                    </div>
+                    <div>
+                        <h5 class="fw-bold">Performance First</h5>
+                        <p>Every stitch engineered for maximum mobility and durability during intense workouts.</p>
+                    </div>
+                </div>
+                <div class="d-flex mb-3">
+                    <div class="me-4">
+                        <div class="bg-dark rounded-circle d-flex align-items-center justify-content-center" style="width: 50px; height: 50px;">
+                            <i class="bi bi-star-fill text-warning fs-5"></i>
+                        </div>
+                    </div>
+                    <div>
+                        <h5 class="fw-bold">Street Ready</h5>
+                        <p>Designs that transition seamlessly from the gym to urban environments.</p>
+                    </div>
+                </div>
+                <div class="d-flex">
+                    <div class="me-4">
+                        <div class="bg-danger rounded-circle d-flex align-items-center justify-content-center" style="width: 50px; height: 50px;">
+                            <i class="bi bi-heart-fill text-white fs-5"></i>
+                        </div>
+                    </div>
+                    <div>
+                        <h5 class="fw-bold">Community Driven</h5>
+                        <p>Tested by our network of athletes and fitness enthusiasts worldwide.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Team Section -->
+    <div class="bg-dark text-white py-5">
+        <div class="container py-5">
+            <div class="row mb-5">
+                <div class="col text-center">
+                    <h2 class="fw-bold text-uppercase">Meet The Iron Crew</h2>
+                    <div class="divider mx-auto bg-danger" style="height: 3px; width: 80px;"></div>
+                </div>
+            </div>
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="card bg-transparent border-0">
+                        <img src="https://pm1.aminoapps.com/6755/8bf4fe6f5365d373ffe14121d94ffb75f9281e9fv2_128.jpg" class="card-img-top rounded-circle mx-auto" style="width: 200px; height: 200px; object-fit: cover;" alt="Founder">
+                        <div class="card-body text-center">
+                            <h5 class="card-title fw-bold">...</h5>
+                            <p class="text-danger">Founder & Head Designer</p>
+                            <p class="card-text">Former competitive powerlifter turned fashion innovator.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card bg-transparent border-0">
+                        <img src="https://pm1.aminoapps.com/6755/8bf4fe6f5365d373ffe14121d94ffb75f9281e9fv2_128.jpg" class="card-img-top rounded-circle mx-auto" style="width: 200px; height: 200px; object-fit: cover;" alt="Designer">
+                        <div class="card-body text-center">
+                            <h5 class="card-title fw-bold">...</h5>
+                            <p class="text-danger">Lead Product Designer</p>
+                            <p class="card-text">Specializes in technical fabrics that move with your body.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card bg-transparent border-0">
+                        <img src="https://pm1.aminoapps.com/6755/8bf4fe6f5365d373ffe14121d94ffb75f9281e9fv2_128.jpg" class="card-img-top rounded-circle mx-auto" style="width: 200px; height: 200px; object-fit: cover;" alt="Trainer">
+                        <div class="card-body text-center">
+                            <h5 class="card-title fw-bold">...</h5>
+                            <p class="text-danger">Head of Athlete Relations</p>
+                            <p class="card-text">Ensures every product meets elite performance standards.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Call to Action -->
+    <div class="bg-danger text-white py-5">
+        <div class="container text-center py-4">
+            <h2 class="fw-bold mb-4 text-uppercase">Ready To Transform Your Workout Wardrobe?</h2>
+            <a href="#" class="btn btn-dark btn-lg px-5 py-3 text-uppercase fw-bold">Shop Collections</a>
+        </div>
+    </div>
+{% endblock %}

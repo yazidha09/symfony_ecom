@@ -1,0 +1,172 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Sign Up - MyShop{% endblock %}
+
+{% block body %}
+<!-- Modern & Professional CSS Styling -->
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+
+    body {
+        font-family: 'Inter', sans-serif;
+        background: linear-gradient(135deg, #f0f4ff, #d6e0f5);
+        position: relative;
+        overflow-x: hidden;
+    }
+
+    .signup-wrapper {
+        position: relative;
+        z-index: 1;
+    }
+
+    .blur-bg {
+        position: absolute;
+        width: 500px;
+        height: 500px;
+        background: #28a745;
+        opacity: 0.1;
+        border-radius: 50%;
+        top: -100px;
+        left: -100px;
+        filter: blur(100px);
+        z-index: 0;
+    }
+
+    .signup-card {
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(8px);
+        border-radius: 20px;
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.08);
+        padding: 2.5rem;
+        max-width: 450px;
+        width: 100%;
+        margin: auto;
+        animation: slideFade 0.5s ease-in-out;
+    }
+
+    @keyframes slideFade {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .signup-card h2 {
+        color: #218838;
+        font-weight: 700;
+        margin-bottom: 1.5rem;
+    }
+
+    .form-label {
+        font-weight: 600;
+        color: #495057;
+    }
+
+    .form-control {
+        border-radius: 10px;
+        padding: 10px 15px;
+        border: 1px solid #ced4da;
+        transition: border-color 0.3s, box-shadow 0.3s;
+    }
+
+    .form-control:focus {
+        border-color: #28a745;
+        box-shadow: 0 0 0 0.2rem rgba(40, 167, 69, 0.25);
+    }
+
+    .btn-success {
+        background-color: #28a745;
+        border: none;
+        border-radius: 12px;
+        font-weight: 600;
+        padding: 0.75rem;
+        transition: background-color 0.3s ease;
+    }
+
+    .btn-success:hover {
+        background-color: #218838;
+    }
+
+    .login-link a {
+        color: #28a745;
+        font-weight: 500;
+        text-decoration: none;
+    }
+
+    .login-link a:hover {
+        text-decoration: underline;
+    }
+
+    .alert {
+        border-radius: 0.75rem;
+        font-size: 0.9rem;
+    }
+</style>
+
+<div class="container d-flex justify-content-center align-items-center min-vh-100 signup-wrapper">
+    <div class="blur-bg"></div>
+
+    <div class="signup-card">
+        <h2 class="text-center">Create an Account</h2>
+
+        {% if app.flashes('error') %}
+            {% for message in app.flashes('error') %}
+                <div class="alert alert-danger">{{ message }}</div>
+            {% endfor %}
+        {% endif %}
+
+        <form method="post" action="{{ path('signup') }}">
+            <div class="mb-3">
+                <label for="username" class="form-label">Username</label>
+                <input 
+                    type="text" 
+                    id="username" 
+                    name="username" 
+                    class="form-control" 
+                    value="{{ username|default('') }}" 
+                    required 
+                    autofocus
+                    placeholder="Enter your username"
+                >
+            </div>
+
+            <div class="mb-3">
+                <label for="email" class="form-label">Email address</label>
+                <input 
+                    type="email" 
+                    id="email" 
+                    name="email" 
+                    class="form-control" 
+                    value="{{ email|default('') }}" 
+                    required
+                    placeholder="you@example.com"
+                >
+            </div>
+
+            <div class="mb-4">
+                <label for="password" class="form-label">Password</label>
+                <input 
+                    type="password" 
+                    id="password" 
+                    name="password" 
+                    class="form-control" 
+                    required
+                    placeholder="••••••••"
+                >
+            </div>
+
+            <div class="d-grid mb-3">
+                <button type="submit" class="btn btn-success">Register</button>
+            </div>
+
+            <div class="text-center login-link">
+                <small>Already have an account? <a href="{{ path('login') }}">Login here</a></small>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
