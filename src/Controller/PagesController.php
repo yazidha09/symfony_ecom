@@ -69,9 +69,52 @@ final class PagesController extends AbstractController
         return $this->render('pages/signup.html.twig');
 
     }
-    #[Route('/addtocart', name: 'addtocart')]
-    public function addtocart(): Response
-    {
-        return $this->render('pages/addtocart.html.twig');
+    #[Route('/addtocart/{id}', name: 'addtocart')]
+public function addtocart(Request $request, int $id = null): Response
+{
+    $session = $request->getSession();
+    $cart = $session->get('cart', []);
+
+    // If an ID is provided (adding a product)
+    if ($id !== null) {
+        // Define our products (in a real app, these would come from a database)
+        $products = [
+            1 => ['name' => 'Comressed Black Shirt', 'price' => 79.99, 'image' => 'https://www.teefitfashion.com/cdn/shop/files/BlackFullCompression_1080x.png?v=1744984939'],
+            2 => ['name' => 'Iron Grip with Wrist Support', 'price' => 129.99, 'image' => 'https://jnbfitness.com/cdn/shop/products/image_c5d65415-fbd0-41fa-943a-d437fd1bc3a8_1024x1024.jpg?v=1549447464'],
+            3 => ['name' => 'GripMaster Gloves', 'price' => 59.99, 'image' => 'https://lsmedia.linker-cdn.net/62267/2025/14047617.jpeg?d=400x400']
+        ];
+
+        if (isset($products[$id])) {
+            if (isset($cart[$id])) {
+                $cart[$id]['quantity']++;
+            } else {
+                $cart[$id] = [
+                    'name' => $products[$id]['name'],
+                    'price' => $products[$id]['price'],
+                    'image' => $products[$id]['image'],
+                    'quantity' => 1
+                ];
+            }
+        }
+        
+        $session->set('cart', $cart);
+        $this->addFlash('success', 'Product added to cart!');
+        return $this->redirectToRoute('addtocart');
     }
+
+    // If removing an item
+    if ($request->query->has('remove')) {
+        $removeId = $request->query->get('remove');
+        if (isset($cart[$removeId])) {
+            unset($cart[$removeId]);
+            $session->set('cart', $cart);
+            $this->addFlash('success', 'Product removed from cart!');
+        }
+        return $this->redirectToRoute('addtocart');
+    }
+
+    return $this->render('pages/addtocart.html.twig', [
+        'cart' => $cart
+    ]);
+}
 }

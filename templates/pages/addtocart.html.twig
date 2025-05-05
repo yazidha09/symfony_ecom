@@ -20,67 +20,61 @@
                     <div class="card-body p-4">
                         <div class="d-flex justify-content-between align-items-center mb-4">
                             <h3 class="fw-bold text-uppercase mb-0">Your Items</h3>
-                            <span class="badge bg-danger rounded-pill">3 items</span>
+                            <span class="badge bg-danger rounded-pill">{{ cart|length }} items</span>
                         </div>
 
-                        <!-- Cart Item 1 -->
+                        {% for id, item in cart %}
+                        <!-- Cart Item -->
                         <div class="row g-3 mb-4 border-bottom pb-4">
                             <div class="col-md-2">
-                                <img src="https://www.teefitfashion.com/cdn/shop/files/BlackFullCompression_1080x.png?v=1744984939" class="img-fluid rounded" alt="IRONLIFT Tee">
+                                <img src="{{ item.image }}" class="img-fluid rounded" alt="{{ item.name }}">
                             </div>
                             <div class="col-md-6">
-                                <h5 class="fw-bold">IRONLIFT Performance Tee</h5>
-                                <p class="text-muted small">Black / XL</p>
+                                <h5 class="fw-bold">{{ item.name }}</h5>
                                 <div class="d-flex align-items-center">
                                     <button class="btn btn-outline-dark btn-sm px-3">-</button>
-                                    <span class="mx-3 fw-bold">2</span>
+                                    <span class="mx-3 fw-bold">{{ item.quantity }}</span>
                                     <button class="btn btn-outline-dark btn-sm px-3">+</button>
                                 </div>
                             </div>
                             <div class="col-md-4 text-end">
-                                <p class="h5 fw-bold text-danger mb-2">159.98 TND</p>
-                                <button class="btn btn-link text-danger p-0"><i class="bi bi-trash"></i> Remove</button>
+                                <p class="h5 fw-bold text-danger mb-2">{{ (item.price * item.quantity)|number_format(2) }} TND</p>
+                                <a href="{{ path('addtocart', {'remove': id}) }}" class="btn btn-link text-danger p-0"><i class="bi bi-trash"></i> Remove</a>
                             </div>
                         </div>
-
-                        <!-- Cart Item 2 -->
-                        <div class="row g-3 mb-4 border-bottom pb-4">
-                            <div class="col-md-2">
-                                <img src="https://jnbfitness.com/cdn/shop/products/image_c5d65415-fbd0-41fa-943a-d437fd1bc3a8_1024x1024.jpg?v=1549447464" class="img-fluid rounded" alt="FlexFit Pants">
-                            </div>
-                            <div class="col-md-6">
-                                <h5 class="fw-bold">FlexFit Yoga Pants</h5>
-                                <p class="text-muted small">Gray / M</p>
-                                <div class="d-flex align-items-center">
-                                    <button class="btn btn-outline-dark btn-sm px-3">-</button>
-                                    <span class="mx-3 fw-bold">1</span>
-                                    <button class="btn btn-outline-dark btn-sm px-3">+</button>
-                                </div>
-                            </div>
-                            <div class="col-md-4 text-end">
-                                <p class="h5 fw-bold text-danger mb-2">129.99 TND</p>
-                                <button class="btn btn-link text-danger p-0"><i class="bi bi-trash"></i> Remove</button>
-                            </div>
+                        {% else %}
+                        <div class="text-center py-5">
+                            <p class="lead">Your cart is empty</p>
+                            <a href="{{ path('home') }}" class="btn btn-dark">Continue Shopping</a>
                         </div>
+                        {% endfor %}
 
+                        {% if cart|length > 0 %}
                         <!-- Promo Code -->
                         <div class="input-group mb-4">
                             <input type="text" class="form-control" placeholder="Promo code">
                             <button class="btn btn-dark" type="button">Apply</button>
                         </div>
+                        {% endif %}
                     </div>
                 </div>
             </div>
 
+            {% if cart|length > 0 %}
             <!-- Order Summary -->
             <div class="col-lg-4">
                 <div class="card shadow-sm sticky-top" style="top: 20px;">
                     <div class="card-body p-4">
                         <h3 class="fw-bold text-uppercase mb-4">Order Summary</h3>
                         
+                        {% set subtotal = 0 %}
+                        {% for item in cart %}
+                            {% set subtotal = subtotal + (item.price * item.quantity) %}
+                        {% endfor %}
+                        
                         <div class="d-flex justify-content-between mb-2">
                             <span>Subtotal</span>
-                            <span class="fw-bold">289.97 TND</span>
+                            <span class="fw-bold">{{ subtotal|number_format(2) }} TND</span>
                         </div>
                         <div class="d-flex justify-content-between mb-2">
                             <span>Shipping</span>
@@ -88,28 +82,26 @@
                         </div>
                         <div class="d-flex justify-content-between mb-2">
                             <span>Tax</span>
-                            <span class="fw-bold">28.99 TND</span>
-                        </div>
-                        <div class="d-flex justify-content-between mb-3">
-                            <span class="text-success">Discount</span>
-                            <span class="fw-bold text-success">-30.00 TND</span>
+                            <span class="fw-bold">{{ (subtotal * 0.1)|number_format(2) }} TND</span>
                         </div>
                         
                         <hr class="my-3">
                         
                         <div class="d-flex justify-content-between mb-4">
                             <span class="fw-bold">Total</span>
-                            <span class="h4 fw-bold text-danger">303.96 TND</span>
+                            <span class="h4 fw-bold text-danger">{{ (subtotal + 15 + (subtotal * 0.1))|number_format(2) }} TND</span>
                         </div>
                         
                         <button class="btn btn-danger w-100 py-3 fw-bold text-uppercase mb-3">Proceed to Checkout</button>
-                        <button class="btn btn-outline-dark w-100">Continue Shopping</button>
+                        <a href="{{ path('home') }}" class="btn btn-outline-dark w-100">Continue Shopping</a>
                     </div>
                 </div>
             </div>
+            {% endif %}
         </div>
     </div>
 
+    {% if cart|length > 0 %}
     <!-- Recommended Products -->
     <div class="bg-light py-5">
         <div class="container">
@@ -136,7 +128,7 @@
                                 <i class="bi bi-star-half"></i>
                             </div>
                             <p class="h5 text-danger fw-bold">89.99 TND</p>
-                            <button class="btn btn-dark btn-sm w-100">Add to Cart</button>
+                            <a href="{{ path('addtocart', {'id': 3}) }}" class="btn btn-dark btn-sm w-100">Add to Cart</a>
                         </div>
                     </div>
                 </div>
@@ -145,4 +137,5 @@
             </div>
         </div>
     </div>
+    {% endif %}
 {% endblock %}
